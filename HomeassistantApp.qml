@@ -220,7 +220,7 @@ App {
 
     Timer {
         id: datetimeTimer2
-        interval: 60000
+        interval: 10000
         triggeredOnStart: true
         running: true
         repeat: true
