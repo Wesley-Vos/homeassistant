@@ -8,8 +8,11 @@ App {
     id: homeassistantApp
 
     property int debug : 0
+    property bool showPower : true
  
     property url tileUrl : "HomeassistantTile.qml";
+    property url tileSwitchesUrl : "HomeassistantTileSwitches.qml";
+    property url tilePowerUrl : "HomeassistantTilePower.qml";
     property url thumbnailIcon: "qrc:/tsc/homeAssistant.png";
 
     property HomeassistantConfigurationScreen homeAssistantConfigurationScreen
@@ -609,6 +612,8 @@ App {
 
     function init() {
         registry.registerWidget("tile", tileUrl, this, null, {thumbLabel: qsTr("homeAssistant"), thumbIcon: thumbnailIcon, thumbCategory: "general", thumbWeight: 30, baseTileWeight: 10, baseTileSolarWeight: 10, thumbIconVAlignment: "center"});
+        registry.registerWidget("tile", tileSwitchesUrl, this, null, {thumbLabel: qsTr("Switches"), thumbIcon: thumbnailIcon, thumbCategory: "general", thumbWeight: 30, baseTileWeight: 10, baseTileSolarWeight: 10, thumbIconVAlignment: "center"});
+        registry.registerWidget("tile", tilePowerUrl, this, null, {thumbLabel: qsTr("Power"), thumbIcon: thumbnailIcon, thumbCategory: "general", thumbWeight: 30, baseTileWeight: 10, baseTileSolarWeight: 10, thumbIconVAlignment: "center"});
         registry.registerWidget("screen", homeAssistantConfigurationScreenUrl, this, "homeAssistantConfigurationScreen");
         registry.registerWidget("screen", homeAssistantScreenUrl, this, "homeAssistantScreen");
     }
