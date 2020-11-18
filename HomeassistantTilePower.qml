@@ -21,7 +21,7 @@ Tile {
             x: 85
             y: 54
             color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
-            text: try { (JSON.parse(app.homeAssistantSensor1Info)['state'] + " " + JSON.parse(app.homeAssistantSensor1Info)['attributes']['unit_of_measurement']).replace("undefined", "") } catch(e) { try { JSON.parse(app.homeAssistantSensor1Info)['state'] } catch(e) { "" } }
+            text: try { (JSON.parse(app.homeAssistantSensorP1Info)['state'] + " " + JSON.parse(app.homeAssistantSensorP1Info)['attributes']['unit_of_measurement']).replace("undefined", "") } catch(e) { try { JSON.parse(app.homeAssistantSensorP1Info)['state'] } catch(e) { "" } }
             font.pixelSize: 15
             font.family: qfont.regular.name
             horizontalAlignment: Text.AlignHCenter
@@ -36,7 +36,7 @@ Tile {
             width: 60
             rotation: 45
             color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
-            text: try { (String(Math.round((parseFloat(JSON.parse(app.homeAssistantSensor4Info)['state'])/1000 - parseFloat(JSON.parse(app.homeAssistantSensor5Info)['state']))*100)/100) + " " + JSON.parse(app.homeAssistantSensor5Info)['attributes']['unit_of_measurement']).replace("undefined", "") } catch(e) { "" }
+            text: try { (String(Math.round((parseFloat(JSON.parse(app.homeAssistantSensorE1Info)['state'])/1000 - parseFloat(JSON.parse(app.homeAssistantSensorE2Info)['state']))*100)/100) + " " + JSON.parse(app.homeAssistantSensorE2Info)['attributes']['unit_of_measurement']).replace("undefined", "") } catch(e) { "" }
             font.pixelSize: 15
             font.family: qfont.regular.name
             horizontalAlignment: Text.AlignHCenter
@@ -49,7 +49,7 @@ Tile {
             x: 85
             y: 87
             color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
-            text: try { (String(Math.round(parseFloat(JSON.parse(app.homeAssistantSensor4Info)['state'])/10)/100) + " " + JSON.parse(app.homeAssistantSensor5Info)['attributes']['unit_of_measurement']).replace("undefined", "") } catch(e) { "" }
+            text: try { (String(Math.round(parseFloat(JSON.parse(app.homeAssistantSensorE1Info)['state'])/10)/100) + " " + JSON.parse(app.homeAssistantSensorE2Info)['attributes']['unit_of_measurement']).replace("undefined", "") } catch(e) { "" }
             font.pixelSize: 16
             font.family: qfont.regular.name
             horizontalAlignment: Text.AlignHCenter
@@ -63,7 +63,7 @@ Tile {
             y: 120
             width: 60
             color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
-            text: try { (String((parseFloat(JSON.parse(app.homeAssistantSensor2Info)['state']) > 0) ? parseFloat(JSON.parse(app.homeAssistantSensor2Info)['state']) : parseFloat(JSON.parse(app.homeAssistantSensor3Info)['state']))  + " " + JSON.parse(app.homeAssistantSensor2Info)['attributes']['unit_of_measurement']).replace("undefined", "") } catch(e) { try { String((parseFloat(JSON.parse(app.homeAssistantSensor2Info)['state']) > 0) ? parseFloat(JSON.parse(app.homeAssistantSensor2Info)['state']) : parseFloat(JSON.parse(app.homeAssistantSensor3Info)['state'])) } catch(e) { "" } }
+            text: try { (String((parseFloat(JSON.parse(app.homeAssistantSensorP2Info)['state']) > 0) ? parseFloat(JSON.parse(app.homeAssistantSensorP2Info)['state']) : parseFloat(JSON.parse(app.homeAssistantSensorP3Info)['state']))  + " " + JSON.parse(app.homeAssistantSensorP2Info)['attributes']['unit_of_measurement']).replace("undefined", "") } catch(e) { try { String((parseFloat(JSON.parse(app.homeAssistantSensorP2Info)['state']) > 0) ? parseFloat(JSON.parse(app.homeAssistantSensorP2Info)['state']) : parseFloat(JSON.parse(app.homeAssistantSensorP3Info)['state'])) } catch(e) { "" } }
             font.pixelSize: 15
             font.family: qfont.regular.name
             horizontalAlignment: Text.AlignHCenter
@@ -77,7 +77,7 @@ Tile {
             rotation: -45
             width: 60
             color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
-            text: try { (JSON.parse(app.homeAssistantSensor5Info)['state'] + " " + JSON.parse(app.homeAssistantSensor5Info)['attributes']['unit_of_measurement']).replace("undefined", "") } catch(e) { try { JSON.parse(app.homeAssistantSensor5Info)['state'] } catch(e) { "" } }
+            text: try { (JSON.parse(app.homeAssistantSensorE2Info)['state'] + " " + JSON.parse(app.homeAssistantSensorE2Info)['attributes']['unit_of_measurement']).replace("undefined", "") } catch(e) { try { JSON.parse(app.homeAssistantSensorE2Info)['state'] } catch(e) { "" } }
             font.pixelSize: 15
             font.family: qfont.regular.name
             horizontalAlignment: Text.AlignHCenter
@@ -90,7 +90,7 @@ Tile {
             y: 120
             width: 60
             color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
-            text: try { (String(parseFloat(JSON.parse(app.homeAssistantSensor1Info)['state']) - parseFloat(JSON.parse(app.homeAssistantSensor2Info)['state']) + parseFloat(JSON.parse(app.homeAssistantSensor3Info)['state'])) + " " + JSON.parse(app.homeAssistantSensor3Info)['attributes']['unit_of_measurement']).replace("undefined", "") } catch(e) { try { String(parseFloat(JSON.parse(app.homeAssistantSensor1Info)['state']) - parseFloat(JSON.parse(app.homeAssistantSensor2Info)['state']) + parseFloat(JSON.parse(app.homeAssistantSensor3Info)['state'])) } catch(e) { "" } }
+            text: try { (String(parseFloat(JSON.parse(app.homeAssistantSensorP1Info)['state']) - parseFloat(JSON.parse(app.homeAssistantSensorP2Info)['state']) + parseFloat(JSON.parse(app.homeAssistantSensorP3Info)['state'])) + " " + JSON.parse(app.homeAssistantSensorP3Info)['attributes']['unit_of_measurement']).replace("undefined", "") } catch(e) { try { String(parseFloat(JSON.parse(app.homeAssistantSensorP1Info)['state']) - parseFloat(JSON.parse(app.homeAssistantSensorP2Info)['state']) + parseFloat(JSON.parse(app.homeAssistantSensorP3Info)['state'])) } catch(e) { "" } }
             font.pixelSize: 15
             font.family: qfont.regular.name
             horizontalAlignment: Text.AlignHCenter
@@ -102,7 +102,7 @@ Tile {
             x: 85
             y: 134
             color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
-            text: try { (JSON.parse(app.homeAssistantSensor6Info)['state'] + " " + JSON.parse(app.homeAssistantSensor6Info)['attributes']['unit_of_measurement']).replace("undefined", "") } catch(e) { try { JSON.parse(app.homeAssistantSensor6Info)['state'] } catch(e) { "" } }
+            text: try { (JSON.parse(app.homeAssistantSensorE3Info)['state'] + " " + JSON.parse(app.homeAssistantSensorE3Info)['attributes']['unit_of_measurement']).replace("undefined", "") } catch(e) { try { JSON.parse(app.homeAssistantSensorE3Info)['state'] } catch(e) { "" } }
             font.pixelSize: 15
             font.family: qfont.regular.name
             horizontalAlignment: Text.AlignHCenter
@@ -148,7 +148,7 @@ Tile {
             width: 60
             source: dimState ? "drawables/arrowWhite.png" : "drawables/arrow.png"
             rotation: 180
-            visible: ((parseFloat(JSON.parse(app.homeAssistantSensor2Info)['state']) > 0) ? true : false) || !app.showPower
+            visible: ((parseFloat(JSON.parse(app.homeAssistantSensorP2Info)['state']) > 0) ? true : false) || !app.showPower
             fillMode: Image.PreserveAspectFit
         }
         
@@ -159,7 +159,7 @@ Tile {
             width: 60
             source: dimState ? "drawables/arrowWhite.png" : "drawables/arrow.png"
             rotation: 45
-            visible: ((parseFloat(JSON.parse(app.homeAssistantSensor3Info)['state']) > 0) ? true : false) || !app.showPower
+            visible: ((parseFloat(JSON.parse(app.homeAssistantSensorP3Info)['state']) > 0) ? true : false) || !app.showPower
             fillMode: Image.PreserveAspectFit
         }
         
@@ -171,7 +171,7 @@ Tile {
             height: 60
             source: dimState ? "drawables/arrowFlippedWhite.png" : "drawables/arrowFlipped.png"
             fillMode: Image.PreserveAspectFit
-            visible: ((parseFloat(JSON.parse(app.homeAssistantSensor1Info)['state']) > 0) ? true : false) || !app.showPower
+            visible: ((parseFloat(JSON.parse(app.homeAssistantSensorP1Info)['state']) > 0) ? true : false) || !app.showPower
         }
     }
 }

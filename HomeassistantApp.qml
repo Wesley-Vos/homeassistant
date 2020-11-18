@@ -60,6 +60,12 @@ App {
     property string homeAssistantSensor6 : ""
     property string homeAssistantSensor7 : ""
     property string homeAssistantSensor8 : ""
+    property string homeAssistantSensorP1 : ""
+    property string homeAssistantSensorP2 : ""
+    property string homeAssistantSensorP3 : ""
+    property string homeAssistantSensorE1 : ""
+    property string homeAssistantSensorE2 : ""
+    property string homeAssistantSensorE3 : ""
 
     property variant homeAssistantSensorsJson : {
         'Sensor1': "",
@@ -70,6 +76,12 @@ App {
         'Sensor6': "",
         'Sensor7': "",
         'Sensor8': "",
+        'SensorP1': "",
+        'SensorP2': "",
+        'SensorP3': "",
+        'SensorE1': "",
+        'SensorE2': "",
+        'SensorE3': "",
     }
 
     FileIO {
@@ -85,6 +97,12 @@ App {
     property variant homeAssistantSensor6Info : []
     property variant homeAssistantSensor7Info : []
     property variant homeAssistantSensor8Info : []
+    property variant homeAssistantSensorP1Info : []
+    property variant homeAssistantSensorP2Info : []
+    property variant homeAssistantSensorP3Info : []
+    property variant homeAssistantSensorE1Info : []
+    property variant homeAssistantSensorE2Info : []
+    property variant homeAssistantSensorE3Info : []
 
     property variant homeAssistantSensorInfoJson : {
         'Sensor1Info': "",
@@ -95,6 +113,12 @@ App {
         'Sensor6Info': "",
         'Sensor7Info': "",
         'Sensor8Info': "",
+        'SensorP1Info': "",
+        'SensorP2Info': "",
+        'SensorP3Info': "",
+        'SensorE1Info': "",
+        'SensorE2Info': "",
+        'SensorE3Info': "",
     }
 
     property string homeAssistantScene1 : ""
@@ -224,7 +248,16 @@ App {
         triggeredOnStart: true
         running: true
         repeat: true
-        onTriggered: getSensorInfo()
+        onTriggered: getSensorInfo(false)
+    }
+
+    Timer {
+        id: datetimeTimer3
+        interval: 60000
+        triggeredOnStart: true
+        running: true
+        repeat: true
+        onTriggered: getSensorInfo(true)
     }
 
     function logText(log) {
@@ -330,62 +363,106 @@ App {
             "Sensor6" : homeAssistantSensor6,
             "Sensor7" : homeAssistantSensor7,
             "Sensor8" : homeAssistantSensor8,
+            "SensorP1" : homeAssistantSensorP1,
+            "SensorP2" : homeAssistantSensorP2,
+            "SensorP3" : homeAssistantSensorP3,
+            "SensorE1" : homeAssistantSensorE1,
+            "SensorE2" : homeAssistantSensorE2,
+            "SensorE3" : homeAssistantSensorE3,
         }
         var doc3 = new XMLHttpRequest();
         doc3.open("PUT", "file:///mnt/data/tsc/homeassistant.sensors.json");
         doc3.send(JSON.stringify(homeAssistantSensorsJson));
         
-        getSensorInfo();
+        getSensorInfo(true);
     }
 
     //Retrieve sensor information from Home Assistant
-    function getSensorInfo() {
+    function getSensorInfo(all) {
         if (connected) {
-            if (homeAssistantSensor1) {
-                getHomeAssistant(homeAssistantSensor1, function(data) {
-                    homeAssistantSensor1Info = data;
+            if(all){
+                if (homeAssistantSensor1) {
+                    getHomeAssistant(homeAssistantSensor1, function(data) {
+                        homeAssistantSensor1Info = data;
+                    });
+                }
+
+                if (homeAssistantSensor2) {
+                    getHomeAssistant(homeAssistantSensor2, function(data) {
+                        homeAssistantSensor2Info = data;
+                    });
+                }
+
+                if (homeAssistantSensor3) {
+                    getHomeAssistant(homeAssistantSensor3, function(data) {
+                        homeAssistantSensor3Info = data;
+                    });
+                }
+
+                if (homeAssistantSensor4) {
+                    getHomeAssistant(homeAssistantSensor4, function(data) {
+                        homeAssistantSensor4Info = data;
+                    });
+                }
+
+                if (homeAssistantSensor5) {
+                    getHomeAssistant(homeAssistantSensor5, function(data) {
+                        homeAssistantSensor5Info = data;
+                    });
+                }
+
+                if (homeAssistantSensor6) {
+                    getHomeAssistant(homeAssistantSensor6, function(data) {
+                        homeAssistantSensor6Info = data;
+                    });
+                }
+
+                if (homeAssistantSensor7) {
+                    getHomeAssistant(homeAssistantSensor7, function(data) {
+                        homeAssistantSensor7Info = data;
+                    });
+                }
+
+                if (homeAssistantSensor8) {
+                    getHomeAssistant(homeAssistantSensor8, function(data) {
+                        homeAssistantSensor8Info = data;
+                    });
+                }
+            }
+
+            if (homeAssistantSensorP1) {
+                getHomeAssistant(homeAssistantSensorP1, function(data) {
+                    homeAssistantSensorP1Info = data;
                 });
             }
 
-            if (homeAssistantSensor2) {
-                getHomeAssistant(homeAssistantSensor2, function(data) {
-                    homeAssistantSensor2Info = data;
+            if (homeAssistantSensorP2) {
+                getHomeAssistant(homeAssistantSensorP2, function(data) {
+                    homeAssistantSensorP2Info = data;
                 });
             }
 
-            if (homeAssistantSensor3) {
-                getHomeAssistant(homeAssistantSensor3, function(data) {
-                    homeAssistantSensor3Info = data;
+            if (homeAssistantSensorP3) {
+                getHomeAssistant(homeAssistantSensorP3, function(data) {
+                    homeAssistantSensorP3Info = data;
                 });
             }
 
-            if (homeAssistantSensor4) {
-                getHomeAssistant(homeAssistantSensor4, function(data) {
-                    homeAssistantSensor4Info = data;
+            if (homeAssistantSensorE1) {
+                getHomeAssistant(homeAssistantSensorE1, function(data) {
+                    homeAssistantSensorE1Info = data;
                 });
             }
 
-            if (homeAssistantSensor5) {
-                getHomeAssistant(homeAssistantSensor5, function(data) {
-                    homeAssistantSensor5Info = data;
+            if (homeAssistantSensorE2) {
+                getHomeAssistant(homeAssistantSensorE2, function(data) {
+                    homeAssistantSensorE2Info = data;
                 });
             }
 
-            if (homeAssistantSensor6) {
-                getHomeAssistant(homeAssistantSensor6, function(data) {
-                    homeAssistantSensor6Info = data;
-                });
-            }
-
-            if (homeAssistantSensor7) {
-                getHomeAssistant(homeAssistantSensor7, function(data) {
-                    homeAssistantSensor7Info = data;
-                });
-            }
-
-            if (homeAssistantSensor8) {
-                getHomeAssistant(homeAssistantSensor8, function(data) {
-                    homeAssistantSensor8Info = data;
+            if (homeAssistantSensorE3) {
+                getHomeAssistant(homeAssistantSensorE3, function(data) {
+                    homeAssistantSensorE3Info = data;
                 });
             }
         }
@@ -750,6 +827,12 @@ App {
         homeAssistantSensor6 = homeAssistantSensorsJson ['Sensor6'];
         homeAssistantSensor7 = homeAssistantSensorsJson ['Sensor7'];
         homeAssistantSensor8 = homeAssistantSensorsJson ['Sensor8'];
+        homeAssistantSensorP1 = homeAssistantSensorsJson ['SensorP1'];
+        homeAssistantSensorP2 = homeAssistantSensorsJson ['SensorP2'];
+        homeAssistantSensorP3 = homeAssistantSensorsJson ['SensorP3'];
+        homeAssistantSensorE1 = homeAssistantSensorsJson ['SensorE1'];
+        homeAssistantSensorE2 = homeAssistantSensorsJson ['SensorE2'];
+        homeAssistantSensorE3 = homeAssistantSensorsJson ['SensorE3'];
 
         homeAssistantAlarm1 = homeAssistantAlarmJson ['Alarm1'];
         homeAssistantAlarm2 = homeAssistantAlarmJson ['Code'];
