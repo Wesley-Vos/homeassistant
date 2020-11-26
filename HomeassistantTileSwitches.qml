@@ -4,171 +4,98 @@ import qb.components 1.0
 
 Tile {
 	id: homeAssistantTileSwitches
+    property bool dimState: screenStateController.dimmedColors
 
 	function init() {}
 
-	Text {
-		id: txtTimeBig
-		text: app.timeStr
-		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
-		anchors {
-			left: parent.left
-			leftMargin: 10
-			baseline: parent.top
-			baselineOffset: isNxt ? 67 : 54
-		}
-		font {
-			family: qfont.regular.name
-			pixelSize: dimState ? qfont.clockFaceText : qfont.timeAndTemperatureText - isNxt ? 5 : 4
-		}
-		visible: app.clockTile ? true : false
-	}
-
-	Text {
-		id: txtDate
-		text: app.dateStr
-		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
-		anchors {
-			left: txtTimeBig.left
-			top: txtTimeBig.bottom
-			topMargin: -10
-		}
-		horizontalAlignment: Text.AlignHCenter
-		font.pixelSize: qfont.tileTitle - 2
-		font.family: qfont.regular.name
-		visible: app.clockTile ? !dimState : false
-	}
-
-	Image {
-		id: homeAssistantIconSmall
-		source: "qrc:/tsc/homeAssistantIconSmall.png"
-		anchors {
-			bottom: txtDate.bottom
-			right: parent.right
-			rightMargin: 10
-		}
-		cache: false
-		visible: app.clockTile ? !dimState : false
-	}
-
-	Image {
-		id: homeAssistantIconSmallCenter
-		source: dimState ? "qrc:/tsc/homeAssistantIconSmallDim.png" : "qrc:/tsc/homeAssistantIconSmall.png"
-		anchors {
-			baseline: parent.top
-			horizontalCenter: parent.horizontalCenter
-			baselineOffset: isNxt ? 19 : 15
-		}
-		cache: false
-		visible: app.clockTile ? false : true
-	}
-
-	property alias switch1R: switchRect1
-
     Rectangle {
-        id: switchRect1
-        width: 250
-        color: "transparent"
-        anchors {
-            baseline: parent.top
-            horizontalCenter: parent.horizontalCenter
-            baselineOffset: 10
-        }
+        id: watertemp
+        visible: dimState
 
         Text {
-            id: homeAssistantSwitch1Name
-            width: 200
-            text: try { JSON.parse(app.homeAssistantSwitch1Info)['attributes']['friendly_name'] } catch(e) { "" }
-            font.pixelSize: 12
-            color: "Black"
-            wrapMode: Text.WordWrap
-            anchors {
-                verticalCenter: switchRect1.verticalCenter
+            text: try { (JSON.parse(app.homeAssistantSensor1Info)['state'] + " " + JSON.parse(app.homeAssistantSensor1Info)['attributes']['unit_of_measurement']).replace("undefined", "") } catch(e) { try { JSON.parse(app.homeAssistantSensor1Info)['state'] } catch(e) { "" } }
+            font.family: qfont.regular.name
+            color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
+            x: 40
+            y: 59
+            width: 150
+            height: 40
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            font.pointSize: 30
+        }
+    }
+
+    Rectangle {
+        id: rectangleScenes
+        visible: !dimState
+
+        IconButton {
+            id: buttonOverdag
+            x: 8
+            y: 8
+            width: 214
+            height: 67
+            text: (JSON.parse(app.homeAssistantSwitch1Info)['state'] == "on") ? "Overdag | AAN" : "Overdag | UIT"
+            onClicked: {
+                if (app.connected) {
+                    if (JSON.parse(app.homeAssistantSwitch1Info)['state'] == "on") {
+                        app.setHomeAssistant(app.homeAssistantSwitch1, 0);
+                        text: "Overdag | UIT"
+                    } else {
+                        app.setHomeAssistant(app.homeAssistantSwitch1, 1);
+                        text: "Overdag | AAN"
+                    }
+                } else {
+                    app.logText("Unable to send command. Please verify connection settings.");
+                }
+            }
+        }
+    
+        /*IconButton {
+            id: buttonAvond
+            x: 119
+            y: 8
+            width: 103
+            height: 67
+            text: "Avond"
+            onClicked: {
+                app.setHomeAssistant(app.homeAssistantScene2);
+            }
+        }*/
+
+        IconButton {
+            id: buttonWeg
+            x: 8
+            y: 83
+            width: 214
+            height: 67
+            text: (JSON.parse(app.homeAssistantSwitch2Info)['state'] == "on") ? "Avond | AAN" : "Avond | UIT"
+            onClicked: {
+                if (app.connected) {
+                    if (JSON.parse(app.homeAssistantSwitch2Info)['state'] == "on") {
+                        app.setHomeAssistant(app.homeAssistantSwitch2, 0);
+                        text: "Avond | UIT"
+                    } else {
+                        app.setHomeAssistant(app.homeAssistantSwitch2, 1);
+                        text: "Avond | AAN"
+                    }
+                } else {
+                    app.logText("Unable to send command. Please verify connection settings.");
+                }
             }
         }
 
-        property alias switch1: toggleSwitch1
-
-        Item {
-            id: toggleSwitch1
-            width: 54
-            height: 36
-            anchors {
-                right: parent.right
-                verticalCenter: parent.verticalCenter
+        /*IconButton {
+            id: buttonSlapen
+            x: 119
+            y: 83
+            width: 103
+            height: 67
+            text: "Slapen"
+            onClicked: {
+                app.setHomeAssistant(app.homeAssistantScene4);
             }
-
-            property bool on: false
-
-            Image {
-                id: homeAssistantSwitch1Button
-                x: 0; y: 0
-                width: 54
-                height: 36
-                source: "qrc:/tsc/button_off.png"
-                smooth: true
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        if (app.connected) {
-                            if (toggleSwitch1.state == "on") {
-                                parent.source = "qrc:/tsc/button_off.png"
-                                knob.x = 1;
-                                app.setHomeAssistant(app.homeAssistantSwitch1, 0);
-                            } else {
-                                parent.source = "qrc:/tsc/button_on.png"
-                                knob.x = 22;
-                                app.setHomeAssistant(app.homeAssistantSwitch1, 1);
-                            }
-                        } else {
-                            app.logText("Unable to send command. Please verify connection settings.");
-                        }
-                    }
-                }
-            }
-
-            Image {
-                id: knob
-                x: 1; y: 0
-                width: 32
-                height: 36
-                source: "qrc:/tsc/knob.png"
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        if (app.connected) {
-                            if (toggleSwitch1.state == "on") {
-                                homeAssistantSwitch1Button.source = "qrc:/tsc/button_off.png"
-                                parent.x = 1;
-                                app.setHomeAssistant(app.homeAssistantSwitch1, 0);
-                            } else {
-                                homeAssistantSwitch1Button.source = "qrc:/tsc/button_on.png"
-                                parent.x = 22;
-                                app.setHomeAssistant(app.homeAssistantSwitch1, 1);
-                            }
-                        } else {
-                            app.logText("Unable to send command. Please verify connection settings.");
-                        }
-                    }
-                }
-            }
-
-            states: [
-                State {
-                    name: "on"
-                    PropertyChanges { target: knob; x: 22 }
-                    PropertyChanges { target: homeAssistantSwitch1Button; source: "qrc:/tsc/button_on.png" }
-                    PropertyChanges { target: toggleSwitch1; on: true }
-                },
-                State {
-                    name: "off"
-                    PropertyChanges { target: knob; x: 1 }
-                    PropertyChanges { target: homeAssistantSwitch1Button; source: "qrc:/tsc/button_off.png" }
-                    PropertyChanges { target: toggleSwitch1; on: false }
-                }
-            ]
-        }
+        }*/
     }
 }

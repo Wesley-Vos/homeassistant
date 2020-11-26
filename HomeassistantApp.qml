@@ -14,6 +14,7 @@ App {
     property url tileSwitchesUrl : "HomeassistantTileSwitches.qml";
     property url tilePowerUrl : "HomeassistantTilePower.qml";
     property url thumbnailIcon: "qrc:/tsc/homeAssistant.png";
+    property url trayUrl : "HomeassistantTray.qml";
 
     property HomeassistantConfigurationScreen homeAssistantConfigurationScreen
     property url homeAssistantConfigurationScreenUrl : "HomeassistantConfigurationScreen.qml"
@@ -63,9 +64,11 @@ App {
     property string homeAssistantSensorP1 : ""
     property string homeAssistantSensorP2 : ""
     property string homeAssistantSensorP3 : ""
+    property string homeAssistantSensorP4 : ""
     property string homeAssistantSensorE1 : ""
     property string homeAssistantSensorE2 : ""
     property string homeAssistantSensorE3 : ""
+    property string homeAssistantSensorE4 : ""
 
     property variant homeAssistantSensorsJson : {
         'Sensor1': "",
@@ -79,9 +82,11 @@ App {
         'SensorP1': "",
         'SensorP2': "",
         'SensorP3': "",
+        'SensorP4': "",
         'SensorE1': "",
         'SensorE2': "",
         'SensorE3': "",
+        'SensorE4': "",
     }
 
     FileIO {
@@ -100,9 +105,11 @@ App {
     property variant homeAssistantSensorP1Info : []
     property variant homeAssistantSensorP2Info : []
     property variant homeAssistantSensorP3Info : []
+    property variant homeAssistantSensorP4Info : []
     property variant homeAssistantSensorE1Info : []
     property variant homeAssistantSensorE2Info : []
     property variant homeAssistantSensorE3Info : []
+    property variant homeAssistantSensorE4Info : []
 
     property variant homeAssistantSensorInfoJson : {
         'Sensor1Info': "",
@@ -116,9 +123,11 @@ App {
         'SensorP1Info': "",
         'SensorP2Info': "",
         'SensorP3Info': "",
+        'SensorP4Info': "",
         'SensorE1Info': "",
         'SensorE2Info': "",
         'SensorE3Info': "",
+        'SensorE4Info': "",
     }
 
     property string homeAssistantScene1 : ""
@@ -179,6 +188,8 @@ App {
     property string homeAssistantSwitch3 : ""
     property string homeAssistantSwitch4 : ""
     property string homeAssistantSwitch5 : ""
+    property string homeAssistantSwitchS1 : ""
+    property string homeAssistantSwitchS2 : ""
 
     property variant homeAssistantSwitchesJson : {
         'Switch1': "",
@@ -186,6 +197,8 @@ App {
         'Switch3': "",
         'Switch4': "",
         'Switch5': "",
+        'SwitchS1': "",
+        'SwitchS2': "",
     }
 
     FileIO {
@@ -198,6 +211,8 @@ App {
     property variant homeAssistantSwitch3Info : []
     property variant homeAssistantSwitch4Info : []
     property variant homeAssistantSwitch5Info : []
+    property variant homeAssistantSwitchS1Info : []
+    property variant homeAssistantSwitchS2Info : []
 
     property variant homeAssistantSwitchInfoJson : {
         'Switch1Info': "",
@@ -205,6 +220,8 @@ App {
         'Switch3Info': "",
         'Switch4Info': "",
         'Switch5Info': "",
+        'SwitchS1Info': "",
+        'SwitchS2Info': "",
     }
 
     property string homeAssistantAlarmCodeLabel : ""
@@ -366,9 +383,11 @@ App {
             "SensorP1" : homeAssistantSensorP1,
             "SensorP2" : homeAssistantSensorP2,
             "SensorP3" : homeAssistantSensorP3,
+            "SensorP4" : homeAssistantSensorP4,
             "SensorE1" : homeAssistantSensorE1,
             "SensorE2" : homeAssistantSensorE2,
             "SensorE3" : homeAssistantSensorE3,
+            "SensorE4" : homeAssistantSensorE4,
         }
         var doc3 = new XMLHttpRequest();
         doc3.open("PUT", "file:///mnt/data/tsc/homeassistant.sensors.json");
@@ -448,6 +467,12 @@ App {
                 });
             }
 
+            if (homeAssistantSensorP4) {
+                getHomeAssistant(homeAssistantSensorP4, function(data) {
+                    homeAssistantSensorP4Info = data;
+                });
+            }
+
             if (homeAssistantSensorE1) {
                 getHomeAssistant(homeAssistantSensorE1, function(data) {
                     homeAssistantSensorE1Info = data;
@@ -463,6 +488,12 @@ App {
             if (homeAssistantSensorE3) {
                 getHomeAssistant(homeAssistantSensorE3, function(data) {
                     homeAssistantSensorE3Info = data;
+                });
+            }
+
+            if (homeAssistantSensorE4) {
+                getHomeAssistant(homeAssistantSensorE4, function(data) {
+                    homeAssistantSensorE4Info = data;
                 });
             }
         }
@@ -593,6 +624,8 @@ App {
             "Switch3" : homeAssistantSwitch3,
             "Switch4" : homeAssistantSwitch4,
             "Switch5" : homeAssistantSwitch5,
+            "SwitchS1" : homeAssistantSwitchS1,
+            "SwitchS2" : homeAssistantSwitchS2,
         }
         var doc6 = new XMLHttpRequest();
         doc6.open("PUT", "file:///mnt/data/tsc/homeassistant.switches.json");
@@ -649,6 +682,23 @@ App {
                     homeAssistantSwitch5Info = "";
                 }
             });
+
+            getHomeAssistant(homeAssistantSwitchS1, function(data) {
+                if (data) {
+                    homeAssistantSwitchS1Info = data;
+                } else {
+                    homeAssistantSwitch1Info = "";
+                }
+            });
+
+            getHomeAssistant(homeAssistantSwitchS2, function(data) {
+                if (data) {
+                    homeAssistantSwitchS2Info = data;
+                } else {
+                    homeAssistantSwitchS2Info = "";
+                }
+                
+            });
         }
     }
 
@@ -693,6 +743,7 @@ App {
         registry.registerWidget("tile", tilePowerUrl, this, null, {thumbLabel: qsTr("Power"), thumbIcon: thumbnailIcon, thumbCategory: "general", thumbWeight: 30, baseTileWeight: 10, baseTileSolarWeight: 10, thumbIconVAlignment: "center"});
         registry.registerWidget("screen", homeAssistantConfigurationScreenUrl, this, "homeAssistantConfigurationScreen");
         registry.registerWidget("screen", homeAssistantScreenUrl, this, "homeAssistantScreen");
+        //registry.registerWidget("systrayIcon", trayUrl, this);
     }
 
     Component.onCompleted: {
@@ -818,6 +869,8 @@ App {
         homeAssistantSwitch3 = homeAssistantSwitchesJson ['Switch3'];
         homeAssistantSwitch4 = homeAssistantSwitchesJson ['Switch4'];
         homeAssistantSwitch5 = homeAssistantSwitchesJson ['Switch5'];
+        homeAssistantSwitchS1 = homeAssistantSwitchesJson ['SwitchS1'];
+        homeAssistantSwitchS2 = homeAssistantSwitchesJson ['SwitchS2'];
         
         homeAssistantSensor1 = homeAssistantSensorsJson ['Sensor1'];
         homeAssistantSensor2 = homeAssistantSensorsJson ['Sensor2'];
@@ -830,9 +883,11 @@ App {
         homeAssistantSensorP1 = homeAssistantSensorsJson ['SensorP1'];
         homeAssistantSensorP2 = homeAssistantSensorsJson ['SensorP2'];
         homeAssistantSensorP3 = homeAssistantSensorsJson ['SensorP3'];
+        homeAssistantSensorP4 = homeAssistantSensorsJson ['SensorP4'];
         homeAssistantSensorE1 = homeAssistantSensorsJson ['SensorE1'];
         homeAssistantSensorE2 = homeAssistantSensorsJson ['SensorE2'];
         homeAssistantSensorE3 = homeAssistantSensorsJson ['SensorE3'];
+        homeAssistantSensorE4 = homeAssistantSensorsJson ['SensorE4'];
 
         homeAssistantAlarm1 = homeAssistantAlarmJson ['Alarm1'];
         homeAssistantAlarm2 = homeAssistantAlarmJson ['Code'];
@@ -893,6 +948,12 @@ App {
                 break;
             case "light":
                 fullUrl = state ? url + "/api/services/" + type + "/turn_on" : url + "/api/services/" + type + "/turn_off";
+                break;
+            case "group":
+                fullUrl = state ? url + "/api/services/homeassistant/turn_on" : url + "/api/services/homeassistant/turn_off";
+                break;
+            case "script":
+                fullUrl = url + "/api/services/script/turn_on";
                 break;
             case "input_boolean":
                 fullUrl = state ? url + "/api/services/" + type + "/turn_on" : url + "/api/services/" + type + "/turn_off";
